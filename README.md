@@ -62,19 +62,19 @@
 ### 3.2 动态阈值计算
 
 $$
-\sigma = \text{std}(r_{\text{daily}}) \times \sqrt{252}
+\sigma = \mathrm{std}(r_{\mathrm{daily}}) \times \sqrt{252}
 $$
 
 $$
-\text{ratio} = \frac{\sigma}{\sigma_{\text{base}}} \quad (\sigma_{\text{base}} = 0.75)
+\mathrm{ratio} = \frac{\sigma}{\sigma_{\mathrm{base}}} \quad (\sigma_{\mathrm{base}} = 0.75)
 $$
 
 $$
-\text{adj} = \text{clip}\left(\sqrt{\text{ratio}},\ 0.5,\ 2.0\right)
+\mathrm{adj} = \mathrm{clip}\left(\sqrt{\mathrm{ratio}},\ 0.5,\ 2.0\right)
 $$
 
 $$
-\text{major\_threshold} = 0.50 \times \text{adj}, \quad \text{minor\_threshold} = 0.20 \times \text{adj}
+\mathrm{major{,}threshold} = 0.50 \times \mathrm{adj}, \quad \mathrm{minor{,}threshold} = 0.20 \times \mathrm{adj}
 $$
 
 不同资产的自适应结果：
@@ -209,11 +209,11 @@ $$
 每一天都是一个训练样本，标签来自**未来 180 天**的实际走势：
 
 $$
-\text{label\_top}_t = \text{clip}\left(-\min_{j \in [1, 180]} \frac{P_{t+j} - P_t}{P_t},\ 0,\ 1\right)
+\mathrm{label\\_top}_{t} = \mathrm{clip}\left(-\min_{j \in [1, 180]} \frac{P_{t+j} - P_t}{P_t},\ 0,\ 1\right)
 $$
 
 $$
-\text{label\_bot}_t = \text{clip}\left(\frac{\max_{j \in [1, 180]} \frac{P_{t+j} - P_t}{P_t}}{2},\ 0,\ 1\right)
+\mathrm{label\\_bot}_{t} = \mathrm{clip}\left(\frac{\max_{j \in [1, 180]} \frac{P_{t+j} - P_t}{P_t}}{2},\ 0,\ 1\right)
 $$
 
 - **逃顶标签**：未来 180 天最大回撤的绝对值（0→安全，1→跌 100%）
@@ -268,7 +268,7 @@ RiskTransformer:
 使用**预测值与实际未来走势的皮尔逊相关系数**衡量：
 
 $$
-r = \text{corr}(\hat{y}_{\text{pred}},\ y_{\text{actual}})
+r = \mathrm{corr}(\hat{y}_{\mathrm{pred}},\ y_{\mathrm{actual}})
 $$
 
 ---
@@ -496,7 +496,7 @@ CFX 从未参与训练，模型仍然达到了：
 | **Mayer Multiple** | Price / 200DMA |
 | **Pi Cycle Top** | 111DMA / (350DMA × 2)，历史上 ≈1.0 时触发大顶 |
 | **RSI** | $100 - \frac{100}{1 + \frac{\text{avg gain}}{\text{avg loss}}}$ |
-| **对数去趋势** | $\ln(P) - \text{linear\_fit}(\ln(P))$，再做 Z-Score |
+| **对数去趋势** | $\ln(P) - \mathrm{linear\\_fit}(\ln(P))$ ，再做 Z-Score |
 
 ---
 
